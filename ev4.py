@@ -3,7 +3,7 @@ import json
 def survey_func():
     survey=[]
     stop="N"
-    while stop!="Y" and len(survey)<2:
+    while stop!="Y" and len(survey)<10:
         if stop=="Y":
             print("Not enought data collected")
         surname=input("What is your surname? ")
@@ -37,3 +37,22 @@ def survey_func():
             answer["number of pet"]=input("How many pet do you own? ")
     with open("survey.json","w") as outfile:
         json.dump(survey,outfile,indent=4)
+
+#exercice 2
+import datetime
+def survey_analize():
+    color_ranking={}
+    today=str(datetime.date.today()).split("-")
+    month_list=("january","february","march","april","may","june","july","august","september","october","november","december")
+    with open("survey.json","r") as outfile:
+        survey=json.load(outfile)
+    for answer in survey:
+        if answer["favorite color"] in color_ranking:
+            color_ranking[answer["favorite color"]]+=1
+        else:
+            color_ranking[answer["favorite color"]]=1
+    print(color_ranking)
+    for answer in survey:
+        birth_date=answer["birth date"].split("/")
+        if today[1]==birth_date[1] and today[2]<birth_date[0]:
+            print(f"the {birth_date[0]} {month_list[int(birth_date[1])-1]} {answer["name"]} {answer["surname"]} will celebrate their {int(today[2])-int(birth_date[2])} years")

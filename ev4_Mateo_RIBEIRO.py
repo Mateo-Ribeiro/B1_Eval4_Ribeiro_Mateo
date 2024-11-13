@@ -80,10 +80,10 @@ def survey_analize():
         survey = json.load(outfile)
 
     for answer in survey:
-        if answer["favorite color"] in color_ranking:
-            color_ranking[answer["favorite color"]] += 1
+        if answer["favorite color"].lower() in color_ranking:
+            color_ranking[answer["favorite color"].lower()] += 1
         else:
-            color_ranking[answer["favorite color"]] = 1
+            color_ranking[answer["favorite color"].lower()] = 1
     print(color_ranking)
     
     for answer in survey:
